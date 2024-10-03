@@ -18,8 +18,9 @@ class MovieRepositoryImpl extends MovieRepository {
     // TODO: implement getDetailMovie
     throw UnimplementedError();
   }
+
   @override
-  Future<Either<Exception, List<MovieEntity>>> getListMovie({String? query, required int page}) {
+  Future<Either<Exception, List<MovieEntity>>> getListMovie({String? query, int? page}) {
     // TODO: implement getListMovie
     throw UnimplementedError();
   }

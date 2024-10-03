@@ -4,7 +4,7 @@ import 'package:test_moviedb/domain/entities/movie_entity.dart';
 
 abstract class MovieRepository {
   Future<Either<Exception, List<MovieEntity>>> getListMovie(
-      {String? query,required int page});
+      {String? query,int? page});
 
   Future<Either<Exception, MovieDetailEntity>> getDetailMovie(int movieId);
 }
