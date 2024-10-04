@@ -1,11 +1,12 @@
 import 'package:test_moviedb/core/app_config.dart';
+import 'package:test_moviedb/data/models/response_server.dart';
 import 'package:test_moviedb/utils/api_helper.dart';
 
 import '../models/movie_detail_model.dart';
 import '../models/movie_model.dart';
 
 abstract class MovieRemoteDatasource {
-  Future<MovieModel> getMovies(int page);
+  Future<ResponseServer> getMovies(int page);
 
   Future<MovieModel> getSearchMovies(String query);
 
@@ -26,7 +27,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDatasource {
   }
 
   @override
-  Future<MovieModel> getMovies(int page) async {
+  Future<ResponseServer> getMovies(int page) async {
     var query = {'page': page};
     var result = await apiHelper.request("GET", ConstantsApp.getMovies,
         contentType: ConstantsApp.contentType, queryParams: query);

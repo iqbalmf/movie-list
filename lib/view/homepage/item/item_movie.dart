@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
+import 'package:test_moviedb/core/app_config.dart';
 import 'package:test_moviedb/domain/entities/movie_entity.dart';
 
 class ItemMovie extends StatefulWidget {
@@ -36,7 +37,7 @@ class _ItemMovieState extends State<ItemMovie> {
                       bottomLeft: Radius.circular(10),
                     ),
                     child: Image.network(
-                      widget.movie.poster,
+                      ConstantsApp.imageUrl+widget.movie.poster,
                       fit: BoxFit.cover,
                       loadingBuilder: (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
@@ -70,18 +71,33 @@ class _ItemMovieState extends State<ItemMovie> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.movie.title),
-                        Text(widget.movie.releaseDate)
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.movie.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                            Text(widget.movie.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200),),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.date_range, size: 13, color: Colors.black),
+                            SizedBox(width: 8,),
+                            Text(widget.movie.releaseDate),
+                          ],
+                        )
                       ],
                     )),
                 Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width * 0.14,
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Column(
+                  padding: EdgeInsets.only(bottom: 10, right: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(widget.movie.voteAverage.toStringAsFixed(1))
+                      Icon(Icons.star, size: 13, color: Colors.orangeAccent),
+                      Text(widget.movie.voteAverage.toStringAsFixed(1)),
                     ],
                   ),
                 )

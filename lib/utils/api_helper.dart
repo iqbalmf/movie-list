@@ -25,7 +25,7 @@ class ApiHelper {
     late Response response;
     var _data = content;
     var headers = {
-      "Authentication": "bearer ${ConstantsApp.apiKey}",
+      "Authorization": "bearer ${ConstantsApp.apiKey}",
       "content-type": contentType,
     };
     _dio.options.headers = headers;

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:test_moviedb/domain/entities/movie_entity.dart';
+import 'package:test_moviedb/view/detailpage/page/detailpage.dart';
+import 'package:test_moviedb/view/homepage/bloc/home_bloc.dart';
+import 'package:test_moviedb/view/homepage/bloc/home_state.dart';
 import 'package:test_moviedb/view/homepage/item/item_movie.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,35 +15,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<MovieEntity> movies = [
+  List<MovieEntity> exMovie = [
     MovieEntity(
         id: 1,
         title: 'The Infernal Machine',
-        description: 'description 1',
-        poster: 'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        poster:
+            'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
         releaseDate: "3 okt 2024",
         voteAverage: 8.77,
         voteCount: 1234),
     MovieEntity(
         id: 2,
         title: 'The Aviary',
-        description: 'description 2',
-        poster: 'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        poster:
+            'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
         releaseDate: "3 okt 2024",
         voteAverage: 8.77,
         voteCount: 1234),
     MovieEntity(
         id: 3,
         title: 'The jack in the box: awakening',
-        description: 'description 3',
-        poster: 'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        poster:
+            'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
         releaseDate: "3 okt 2024",
         voteAverage: 8.77,
         voteCount: 1234),
     MovieEntity(
         id: 4,
         title: 'the ledge',
-        description: 'description 4',
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         poster: '',
         releaseDate: "3 okt 2024",
         voteAverage: 8.77,
@@ -46,7 +58,8 @@ class _HomePageState extends State<HomePage> {
     MovieEntity(
         id: 5,
         title: 'the batman',
-        description: 'description 5',
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         poster: '',
         releaseDate: "3 okt 2024",
         voteAverage: 8.77,
@@ -54,7 +67,8 @@ class _HomePageState extends State<HomePage> {
     MovieEntity(
         id: 6,
         title: 'the spiderman',
-        description: 'description 6',
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         poster: '',
         releaseDate: "3 okt 2024",
         voteAverage: 8.77,
@@ -79,44 +93,58 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('My Movie'),
-      ),
-      body: Container(
-        color: Colors.white70,
-        child: movie(),
-      ),
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        if (state.movieStatusState == MovieStatusState.done) {
+          filteredMovies = state.movies;
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text('My Movie'),
+          ),
+          body: Container(
+            color: Colors.white70,
+            child: state.movieStatusState == MovieStatusState.loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : movie(state),
+          ),
+        );
+      },
     );
   }
 
   List<MovieEntity> filteredMovies = [];
   String searchQuery = "";
 
-  void updateSearchQuery(String query) {
+  void updateSearchQuery(String query, {List<MovieEntity>? movies}) {
     setState(() {
       searchQuery = query;
       filteredMovies = movies
-          .where((movie) =>
+          ?.where((movie) =>
               movie.title.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+          .toList() ?? [];
     });
   }
 
   @override
   void initState() {
     super.initState();
-    filteredMovies = movies;
+    // filteredMovies = movies;
+    context.read<HomeBloc>().getListMovies(1);
   }
 
-  Widget movie() {
+  Widget movie(HomeState homeState) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           TextField(
-            onChanged: (q) => updateSearchQuery(q),
+            onChanged: (q) => updateSearchQuery(q, movies: homeState.movies),
             decoration: InputDecoration(
               hintText: "Search",
               prefix: Icon(Icons.search),
@@ -139,6 +167,12 @@ class _HomePageState extends State<HomePage> {
                   movie: filteredMovies[index],
                   onTap: () {
                     // Move to Detail Movie
+                    WidgetsBinding.instance.addPostFrameCallback((_) =>
+                        WidgetsBinding.instance.focusManager.primaryFocus
+                            ?.unfocus());
+                    Get.to(
+                      () => DetailMoviePage(movieEntity: filteredMovies[index]),
+                    );
                   },
                 );
               },

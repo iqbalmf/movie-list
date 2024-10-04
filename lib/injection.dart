@@ -9,6 +9,7 @@ import 'package:test_moviedb/domain/usecase/get_detail_movie_usecase.dart';
 import 'package:test_moviedb/domain/usecase/get_movie_list_usecase.dart';
 import 'package:test_moviedb/domain/usecase/get_search_movie_list_usecase.dart';
 import 'package:test_moviedb/utils/api_helper.dart';
+import 'package:test_moviedb/view/homepage/bloc/home_bloc.dart';
 
 final locator = GetIt.instance;
 
@@ -22,8 +23,8 @@ void init() {
       movieRemoteDatasource: locator(), movieLocalDataSource: locator()));
   
   //DataSource
-  locator.registerLazySingleton(() => MovieRemoteDataSourceImpl(locator()));
-  locator.registerLazySingleton(() => MovieLocalDataSourceImpl());
+  locator.registerLazySingleton<MovieRemoteDatasource>(() => MovieRemoteDataSourceImpl(locator()));
+  locator.registerLazySingleton<MovieLocalDatasource>(() => MovieLocalDataSourceImpl());
   
   //UseCase
   locator.registerLazySingleton(() => GetMovieListUseCase(locator()));
@@ -31,4 +32,5 @@ void init() {
   locator.registerLazySingleton(() => GetSearchMovieListUseCase(locator()));
 
   //Bloc
+  locator.registerFactory(() => HomeBloc(locator()));
 }
