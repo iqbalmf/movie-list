@@ -10,7 +10,7 @@ abstract class MovieRemoteDatasource {
 
   Future<MovieModel> getSearchMovies(String query);
 
-  Future<MovieDetailModel> getDetailMovies(int movieId);
+  Future<ResponseServer> getDetailMovies(int movieId);
 }
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDatasource {
@@ -19,7 +19,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDatasource {
   MovieRemoteDataSourceImpl(this.apiHelper);
 
   @override
-  Future<MovieDetailModel> getDetailMovies(int movieId) async {
+  Future<ResponseServer> getDetailMovies(int movieId) async {
     var result = await apiHelper.request(
         "GET", ConstantsApp.getMovieId + movieId.toString(),
         contentType: ConstantsApp.contentType);

@@ -66,7 +66,7 @@ class _ItemMovieState extends State<ItemMovie> {
                 Container(
                     height: double.infinity,
                     width: MediaQuery.of(context).size.width * 0.6,
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(left: 10, top: 5, bottom: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,8 +75,8 @@ class _ItemMovieState extends State<ItemMovie> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.movie.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                            Text(widget.movie.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200),),
+                            Text(widget.movie.title, maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                            Text(widget.movie.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w200),),
                           ],
                         ),
                         Row(

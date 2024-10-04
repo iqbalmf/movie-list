@@ -25,6 +25,10 @@ class ConstantsApp {
     return _config[_Config.imageUrl];
   }
 
+  static get imdbUrl {
+    return _config[_Config.imdbUrl];
+  }
+
   static get modeDevelopment {
     return _config[_Config.modeDevelopment];
   }
@@ -45,6 +49,7 @@ class ConstantsApp {
 class _Config {
   static const String baseUrl = "https://api.themoviedb.org/3";
   static const String imageUrl = "https://image.tmdb.org/t/p/w500";
+  static const String imdbUrl = "https://www.imdb.com/title/";
   static const String appName = "";
   static const bool modeDevelopment = false;
   static const String versionApp = "1.0.0";
@@ -52,6 +57,7 @@ class _Config {
   static Map<dynamic, dynamic> development = {
     baseUrl: 'https://api.themoviedb.org/3',
     imageUrl: 'https://image.tmdb.org/t/p/w500',
+    imdbUrl: "https://www.imdb.com/title/",
     appName: 'Movie List Dev',
     modeDevelopment: true,
     versionApp: "1.0.0",
@@ -61,6 +67,7 @@ class _Config {
   static Map<dynamic, dynamic> production = {
     baseUrl: 'https://api.themoviedb.org/3',
     imageUrl: 'https://image.tmdb.org/t/p/w500',
+    imdbUrl: "https://www.imdb.com/title/",
     appName: 'Movie List',
     modeDevelopment: false,
     versionApp: "1.0.0",

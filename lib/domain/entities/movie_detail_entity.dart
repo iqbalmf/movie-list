@@ -14,7 +14,8 @@ class MovieDetailEntity extends Equatable {
   final int voteCount;
   final String status;
   final String releaseDate;
-  final String linkHompage;
+  final int budget;
+  final int revenue;
 
   MovieDetailEntity({
     required this.id,
@@ -29,7 +30,8 @@ class MovieDetailEntity extends Equatable {
     required this.voteAverage,
     required this.status,
     required this.releaseDate,
-    required this.linkHompage,
+    required this.budget,
+    required this.revenue,
   });
 
   @override
@@ -43,9 +45,10 @@ class MovieDetailEntity extends Equatable {
         imdbId,
         genres,
         voteCount,
-    voteAverage,
+        voteAverage,
         status,
         releaseDate,
-        linkHompage
+        budget,
+        revenue
       ];
 }
