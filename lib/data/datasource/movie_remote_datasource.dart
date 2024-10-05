@@ -1,6 +1,6 @@
-import 'package:test_moviedb/core/app_config.dart';
-import 'package:test_moviedb/data/models/response_server.dart';
-import 'package:test_moviedb/utils/api_helper.dart';
+import 'package:movie_list/core/app_config.dart';
+import 'package:movie_list/data/models/response_server.dart';
+import 'package:movie_list/utils/api_helper.dart';
 
 import '../models/movie_detail_model.dart';
 import '../models/movie_model.dart';

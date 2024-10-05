@@ -1,5 +1,7 @@
+import 'package:objectbox/objectbox.dart';
+
 class MovieDetailModel {
-  final int id;
+  int id;
   final String homepage;
   final String title;
   final String description;
@@ -71,7 +73,7 @@ class MovieDetailModel {
 }
 
 class Genres {
-  final int id;
+  int id;
   final String name;
 
   Genres({required this.id, required this.name});

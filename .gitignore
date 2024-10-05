@@ -44,3 +44,4 @@ app.*.map.json
 */objectbox.g.dart
 */objectbox-model.json
 pubspec.lock
+*.env

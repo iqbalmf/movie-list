@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_moviedb/domain/usecase/get_detail_movie_usecase.dart';
-import 'package:test_moviedb/view/detailpage/bloc/detail_state.dart';
+import 'package:movie_list/domain/usecase/get_detail_movie_usecase.dart';
+import 'package:movie_list/view/detailpage/bloc/detail_state.dart';
 
 class DetailBloc extends Cubit<DetailState> {
   final GetDetailMovieUseCase getDetailMovieUseCase;

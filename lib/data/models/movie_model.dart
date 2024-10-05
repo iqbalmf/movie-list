@@ -2,7 +2,9 @@ import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class MovieModel {
-  int id;
+  @Id()
+  late int? movieId;
+  final int id;
   final String title;
   final String description;
   final String poster;
@@ -11,7 +13,8 @@ class MovieModel {
   final int voteCount;
 
   MovieModel(
-      {required this.id,
+      {this.movieId,
+      required this.id,
       required this.title,
       required this.description,
       required this.poster,
@@ -21,13 +24,14 @@ class MovieModel {
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
-        id: json['id'],
-        title: json['title'],
-        description: json['overview'],
-        poster: json['poster_path'],
-        releaseDate: json['release_date'],
-        voteAverage: json['vote_average'],
-        voteCount: json['vote_count']);
+      id: json['id'],
+      title: json['title'],
+      description: json['overview'],
+      poster: json['poster_path'],
+      releaseDate: json['release_date'],
+      voteAverage: json['vote_average'],
+      voteCount: json['vote_count'],
+    );
   }
 
   Map<String, dynamic> toJson() {

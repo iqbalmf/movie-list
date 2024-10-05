@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_moviedb/domain/entities/movie_detail_entity.dart';
+import 'package:movie_list/domain/entities/movie_detail_entity.dart';
 
 enum DetailStatusState { init, loading, done, fail }
 

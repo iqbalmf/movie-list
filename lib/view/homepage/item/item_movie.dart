@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
-import 'package:test_moviedb/core/app_config.dart';
-import 'package:test_moviedb/domain/entities/movie_entity.dart';
+import 'package:movie_list/core/app_config.dart';
+import 'package:movie_list/domain/entities/movie_entity.dart';
 
 class ItemMovie extends StatefulWidget {
   final MovieEntity movie;

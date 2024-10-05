@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:test_moviedb/domain/entities/movie_entity.dart';
-import 'package:test_moviedb/utils/number_formatting.dart';
-import 'package:test_moviedb/view/detailpage/bloc/detail_bloc.dart';
-import 'package:test_moviedb/view/detailpage/bloc/detail_state.dart';
-import 'package:test_moviedb/view/webviewpage/page/web_page.dart';
+import 'package:movie_list/domain/entities/movie_entity.dart';
+import 'package:movie_list/utils/number_formatting.dart';
+import 'package:movie_list/view/detailpage/bloc/detail_bloc.dart';
+import 'package:movie_list/view/detailpage/bloc/detail_state.dart';
+import 'package:movie_list/view/webviewpage/page/web_page.dart';
 
 import '../../../core/app_config.dart';
 

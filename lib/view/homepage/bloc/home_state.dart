@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_moviedb/domain/entities/movie_entity.dart';
+import 'package:movie_list/domain/entities/movie_entity.dart';
 
 enum MovieStatusState {
   init,
@@ -12,21 +12,30 @@ class HomeState extends Equatable {
   String? message;
   MovieStatusState? movieStatusState;
   List<MovieEntity> movies;
+  int currentPage;
 
-  HomeState(
-      {this.message,
-      this.movieStatusState,
-      this.movies = const <MovieEntity>[]});
+  HomeState({
+    this.message,
+    this.movieStatusState,
+    this.movies = const <MovieEntity>[],
+    this.currentPage = 1,
+  });
 
-  HomeState copyWith(
-          {String? message,
-          MovieStatusState? movieStatusState,
-          List<MovieEntity>? movies}) =>
+  HomeState copyWith({
+    String? message,
+    MovieStatusState? movieStatusState,
+    List<MovieEntity>? movies,
+    int? currentPage,
+    bool? statusNetwork,
+  }) =>
       HomeState(
-          message: message,
-          movieStatusState: movieStatusState,
-          movies: movies ?? this.movies);
+        message: message,
+        movieStatusState: movieStatusState,
+        movies: movies ?? this.movies,
+        currentPage: currentPage ?? this.currentPage,
+      );
 
   @override
-  List<Object?> get props => [message, movieStatusState, movies];
+  List<Object?> get props =>
+      [message, movieStatusState, movies, currentPage,];
 }

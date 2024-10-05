@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:movie_list/core/flavors.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:test_moviedb/core/app_config.dart';
+import 'package:movie_list/core/app_config.dart';
 
 import '../data/models/response_server.dart';
 
@@ -11,10 +12,10 @@ class ApiHelper {
     _dio = dio;
 
     _dio.interceptors.add(PrettyDioLogger(
-      request: ConstantsApp.modeDevelopment,
-      requestBody: ConstantsApp.modeDevelopment,
-      requestHeader: ConstantsApp.modeDevelopment,
-      responseBody: ConstantsApp.modeDevelopment,
+      request: Flavor.dev.isDevelopment,
+      requestBody: Flavor.dev.isDevelopment,
+      requestHeader: Flavor.dev.isDevelopment,
+      responseBody: Flavor.dev.isDevelopment,
     ));
   }
 

@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:test_moviedb/domain/entities/movie_entity.dart';
-import 'package:test_moviedb/view/detailpage/page/detailpage.dart';
-import 'package:test_moviedb/view/homepage/bloc/home_bloc.dart';
-import 'package:test_moviedb/view/homepage/bloc/home_state.dart';
-import 'package:test_moviedb/view/homepage/item/item_movie.dart';
+import 'package:movie_list/domain/entities/movie_entity.dart';
+import 'package:movie_list/utils/network_status.dart';
+import 'package:movie_list/view/detailpage/page/detailpage.dart';
+import 'package:movie_list/view/homepage/bloc/home_bloc.dart';
+import 'package:movie_list/view/homepage/bloc/home_state.dart';
+import 'package:movie_list/view/homepage/item/item_movie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,81 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<MovieEntity> exMovie = [
-    MovieEntity(
-        id: 1,
-        title: 'The Infernal Machine',
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        poster:
-            'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 2,
-        title: 'The Aviary',
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        poster:
-            'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 3,
-        title: 'The jack in the box: awakening',
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        poster:
-            'https://image.tmdb.org/t/p/w200/dvBCdCohwWbsP5qAaglOXagDMtk.jpg',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 4,
-        title: 'the ledge',
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        poster: '',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 5,
-        title: 'the batman',
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        poster: '',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 6,
-        title: 'the spiderman',
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        poster: '',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 7,
-        title: 'the dracula',
-        description: 'description 7',
-        poster: '',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-    MovieEntity(
-        id: 8,
-        title: 'cat and dog',
-        description: 'description 8',
-        poster: '',
-        releaseDate: "3 okt 2024",
-        voteAverage: 8.77,
-        voteCount: 1234),
-  ];
+  late ScrollController _scrollController;
+  late HomeBloc _homeBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +37,7 @@ class _HomePageState extends State<HomePage> {
           ),
           body: Container(
             color: Colors.white70,
-            child: state.movieStatusState == MovieStatusState.loading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : movie(state),
+            child: movie(state),
           ),
         );
       },
@@ -121,21 +47,41 @@ class _HomePageState extends State<HomePage> {
   List<MovieEntity> filteredMovies = [];
   String searchQuery = "";
 
-  void updateSearchQuery(String query, {List<MovieEntity>? movies}) {
-    setState(() {
-      searchQuery = query;
-      filteredMovies = movies
-          ?.where((movie) =>
-              movie.title.toLowerCase().contains(query.toLowerCase()))
-          .toList() ?? [];
-    });
+  Future<void> updateSearchQuery(String query, {List<MovieEntity>? movies}) async {
+    if (await NetworkStatus.isNetworkOnline()){
+      //get data from searching
+    } else {
+      setState(() {
+        searchQuery = query;
+        filteredMovies = movies
+            ?.where((movie) =>
+            movie.title.toLowerCase().contains(query.toLowerCase()))
+            .toList() ?? [];
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    // filteredMovies = movies;
-    context.read<HomeBloc>().getListMovies(1);
+    _scrollController = ScrollController()..addListener(_onScroll);
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _homeBloc.getListMovies(1);
+  }
+
+  Future<void> _onScroll() async {
+    if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
+      printInfo(info: "Max Scroll!!");
+      if(await NetworkStatus.isNetworkOnline()) {
+        _homeBloc.getListMovies(_homeBloc.state.currentPage + 1);
+      }
+    }
   }
 
   Widget movie(HomeState homeState) {
@@ -148,13 +94,6 @@ class _HomePageState extends State<HomePage> {
             decoration: InputDecoration(
               hintText: "Search",
               prefix: Icon(Icons.search),
-              suffixIcon: searchQuery.isNotEmpty
-                  ? IconButton(
-                      onPressed: () {
-                        updateSearchQuery('');
-                      },
-                      icon: Icon(Icons.clear))
-                  : null,
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             ),
@@ -166,7 +105,6 @@ class _HomePageState extends State<HomePage> {
                 return ItemMovie(
                   movie: filteredMovies[index],
                   onTap: () {
-                    // Move to Detail Movie
                     WidgetsBinding.instance.addPostFrameCallback((_) =>
                         WidgetsBinding.instance.focusManager.primaryFocus
                             ?.unfocus());
@@ -176,6 +114,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 );
               },
+              controller: _scrollController,
               itemCount: filteredMovies.length,
               shrinkWrap: true,
               physics: const ScrollPhysics(),

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:test_moviedb/view/detailpage/page/detailpage.dart';
-import 'package:test_moviedb/view/homepage/page/homepage.dart';
+import 'package:movie_list/view/detailpage/page/detailpage.dart';
+import 'package:movie_list/view/homepage/page/homepage.dart';
 
 class RouterApp {
   static const String initial = '/';

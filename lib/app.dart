@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:test_moviedb/utils/routes.dart';
-import 'package:test_moviedb/view/detailpage/bloc/detail_bloc.dart';
-import 'package:test_moviedb/view/homepage/bloc/home_bloc.dart';
+import 'package:movie_list/utils/routes.dart';
+import 'package:movie_list/view/detailpage/bloc/detail_bloc.dart';
+import 'package:movie_list/view/homepage/bloc/home_bloc.dart';
 import 'injection.dart' as di;
 
 class MovieApp extends StatelessWidget {

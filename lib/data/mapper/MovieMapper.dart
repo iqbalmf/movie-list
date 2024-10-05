@@ -1,8 +1,8 @@
-import 'package:test_moviedb/data/models/movie_detail_model.dart';
-import 'package:test_moviedb/data/models/movie_model.dart';
-import 'package:test_moviedb/domain/entities/genre_entity.dart';
-import 'package:test_moviedb/domain/entities/movie_detail_entity.dart';
-import 'package:test_moviedb/domain/entities/movie_entity.dart';
+import 'package:movie_list/data/models/movie_detail_model.dart';
+import 'package:movie_list/data/models/movie_model.dart';
+import 'package:movie_list/domain/entities/genre_entity.dart';
+import 'package:movie_list/domain/entities/movie_detail_entity.dart';
+import 'package:movie_list/domain/entities/movie_entity.dart';
 
 class MovieMapper {
   static MovieEntity movieModelToEntity(MovieModel movieModel) {

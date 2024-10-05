@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_moviedb/core/app_config.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebPage extends StatefulWidget {
