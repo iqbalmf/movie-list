@@ -10,7 +10,7 @@ A Movie List Project using TMDB Api third party
 -   flutter clean
 -   flutter pub get
 -   dart run build_runner build
--   flutter run --flavor=dev
+-   flutter run --flavor dev
 
 ### Download File .Apk
 -   Download file app-prod-release.apk
@@ -24,7 +24,7 @@ A Movie List Project using TMDB Api third party
 - Mockito
 
 ## Preview
-![](Screenshot_20241006_224923.png){:width="100" height="100"}
-![](Screenshot_20241006_225001.png)
-![](Screenshot_20241006_225011.png)
+<img src="Screenshot_20241006_224923.png" alt="Sample Image" width="300" height="650">
+<img src="Screenshot_20241006_225001.png" alt="Sample Image" width="300" height="650">
+<img src="Screenshot_20241006_225011.png" alt="Sample Image" width="300" height="650">
 
