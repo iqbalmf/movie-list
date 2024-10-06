@@ -14,10 +14,12 @@ import 'package:movie_list/utils/network_status.dart';
 class MovieRepositoryImpl extends MovieRepository {
   final MovieRemoteDatasource movieRemoteDatasource;
   final MovieLocalDatasource movieLocalDataSource;
+  final NetworkInfo networkInfo;
 
   MovieRepositoryImpl(
       {required this.movieRemoteDatasource,
-      required this.movieLocalDataSource});
+      required this.movieLocalDataSource,
+      required this.networkInfo});
 
   @override
   Future<Either<Exception, MovieDetailEntity>> getDetailMovie(
@@ -42,7 +44,7 @@ class MovieRepositoryImpl extends MovieRepository {
       {String? query, int? page}) async {
     try {
       List<MovieModel> data;
-      if (await NetworkStatus.isNetworkOnline()) {
+      if (await networkInfo.isConnected()) {
         final result = await movieRemoteDatasource.getMovies(page ?? 1);
         data = List<MovieModel>.from(
             result.data['results'].map((json) => MovieModel.fromJson(json)));

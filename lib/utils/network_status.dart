@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+abstract class NetworkInfo{
+  Future<bool> isConnected();
+}
 
-class NetworkStatus {
+class NetworkStatus implements NetworkInfo{
   static const _platform = MethodChannel('network-status');
 
   static Future<bool> isNetworkOnline() async {
@@ -15,5 +18,10 @@ class NetworkStatus {
       }
       return false;
     }
+  }
+
+  @override
+  Future<bool> isConnected() {
+    return NetworkStatus.isNetworkOnline();
   }
 }

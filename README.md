@@ -23,3 +23,8 @@ A Movie List Project using TMDB Api third party
 - Implement Method Channel
 - Mockito
 
+## Preview
+![](Screenshot_20241006_224923.png)
+![](Screenshot_20241006_225001.png)
+![](Screenshot_20241006_225011.png)
+

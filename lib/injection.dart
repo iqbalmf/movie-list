@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_list/utils/network_status.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:movie_list/core/app_config.dart';
@@ -28,14 +29,16 @@ Future<void> init() async {
   final store = Store(getObjectBoxModel(), directory: '${dir.path}/objectbox');
   locator.registerLazySingleton(() => store);
   locator.registerLazySingleton(() => store.box<MovieModel>());
-
-  //Repository
-  locator.registerLazySingleton<MovieRepository>(() => MovieRepositoryImpl(
-      movieRemoteDatasource: locator(), movieLocalDataSource: locator()));
   
   //DataSource
   locator.registerLazySingleton<MovieRemoteDatasource>(() => MovieRemoteDataSourceImpl(locator()));
   locator.registerLazySingleton<MovieLocalDatasource>(() => MovieLocalDataSourceImpl(store.box<MovieModel>()));
+
+  //Repository
+  locator.registerLazySingleton<MovieRepository>(() => MovieRepositoryImpl(
+      movieRemoteDatasource: locator(), movieLocalDataSource: locator(), networkInfo: locator()));
+
+  locator.registerLazySingleton<NetworkInfo>(() => NetworkStatus());
   
   //UseCase
   locator.registerLazySingleton(() => GetMovieListUseCase(locator()));

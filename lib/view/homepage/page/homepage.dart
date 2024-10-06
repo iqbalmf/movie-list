@@ -48,9 +48,9 @@ class _HomePageState extends State<HomePage> {
   String searchQuery = "";
 
   Future<void> updateSearchQuery(String query, {List<MovieEntity>? movies}) async {
-    if (await NetworkStatus.isNetworkOnline()){
-      //get data from searching
-    } else {
+    // if (await NetworkStatus.isNetworkOnline()){
+    //   //get data from searching
+    // } else {
       setState(() {
         searchQuery = query;
         filteredMovies = movies
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             movie.title.toLowerCase().contains(query.toLowerCase()))
             .toList() ?? [];
       });
-    }
+    // }
   }
 
   @override
@@ -76,7 +76,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _onScroll() async {
-    if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
+    if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent &&
+    WidgetsBinding.instance.focusManager.primaryFocus != EditableText){
       printInfo(info: "Max Scroll!!");
       if(await NetworkStatus.isNetworkOnline()) {
         _homeBloc.getListMovies(_homeBloc.state.currentPage + 1);
