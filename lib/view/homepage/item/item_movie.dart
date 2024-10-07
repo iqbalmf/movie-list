@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:movie_list/core/app_config.dart';
@@ -36,31 +37,44 @@ class _ItemMovieState extends State<ItemMovie> {
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
                     ),
-                    child: Image.network(
-                      ConstantsApp.imageUrl+widget.movie.poster,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      (loadingProgress.expectedTotalBytes ?? 1)
-                                  : null,
-                            ),
-                          );
-                        }
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
+                    child: CachedNetworkImage(
+                        imageUrl:  ConstantsApp.imageUrl+widget.movie.poster,
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => Image.asset(
                           'assets/icon-not-found.png',
                           fit: BoxFit.contain,
-                        );
-                      },
+                        ),
+                        width: 100,
+                        height: 150,
+                        fit: BoxFit.cover,
                     ),
+                    // child: Image.network(
+                    //   ConstantsApp.imageUrl+widget.movie.poster,
+                    //   fit: BoxFit.cover,
+                    //   loadingBuilder: (BuildContext context, Widget child,
+                    //       ImageChunkEvent? loadingProgress) {
+                    //     if (loadingProgress == null) {
+                    //       return child;
+                    //     } else {
+                    //       return Center(
+                    //         child: CircularProgressIndicator(
+                    //           value: loadingProgress.expectedTotalBytes != null
+                    //               ? loadingProgress.cumulativeBytesLoaded /
+                    //                   (loadingProgress.expectedTotalBytes ?? 1)
+                    //               : null,
+                    //         ),
+                    //       );
+                    //     }
+                    //   },
+                    //   errorBuilder: (context, error, stackTrace) {
+                    //     return Image.asset(
+                    //       'assets/icon-not-found.png',
+                    //       fit: BoxFit.contain,
+                    //     );
+                    //   },
+                    // ),
                   ),
                 ),
                 Container(
