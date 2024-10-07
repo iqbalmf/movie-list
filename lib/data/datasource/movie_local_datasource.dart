@@ -23,12 +23,7 @@ class MovieLocalDataSourceImpl extends MovieLocalDatasource {
   @override
   Future<List<MovieModel>> getCachedMovieList() async {
     List<MovieModel> movie = movieBox.getAll();
-    List<MovieModel> result = [];
-    for(MovieModel mov in movie){
-      if(result.contains(mov)){} else {
-        result.add(mov);
-      }
-    }
+    List<MovieModel> result = movie.toSet().toList();
     return result;
   }
 
@@ -36,8 +31,8 @@ class MovieLocalDataSourceImpl extends MovieLocalDatasource {
   Future<void> saveMovies(List<MovieModel> movies) async {
     List<MovieModel> toSave = [];
     for (var movie in movies) {
-      final existingMovies = movieBox
-          .query(MovieModel_.movieId.equals(movie.movieId ?? 0))
+      List<MovieModel> existingMovies = movieBox
+          .query(MovieModel_.id.equals(movie.id))
           .build()
           .find();
       if (existingMovies.isEmpty) {

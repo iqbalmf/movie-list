@@ -45,4 +45,27 @@ class MovieModel {
       'vote_count': voteCount
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MovieModel &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          description == other.description &&
+          poster == other.poster &&
+          voteAverage == other.voteAverage &&
+          voteCount == other.voteCount &&
+          id == other.id &&
+          releaseDate == other.releaseDate;
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      id.hashCode ^
+      releaseDate.hashCode ^
+      description.hashCode ^
+      poster.hashCode ^
+      voteAverage.hashCode ^
+      voteCount.hashCode;
 }
