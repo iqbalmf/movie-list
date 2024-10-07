@@ -48,9 +48,9 @@ class _HomePageState extends State<HomePage> {
   String searchQuery = "";
 
   Future<void> updateSearchQuery(String query, {List<MovieEntity>? movies}) async {
-    // if (await NetworkStatus.isNetworkOnline()){
-    //   //get data from searching
-    // } else {
+    if (await NetworkStatus.isNetworkOnline()){
+      //get data from searching
+    } else {
       setState(() {
         searchQuery = query;
         filteredMovies = movies
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             movie.title.toLowerCase().contains(query.toLowerCase()))
             .toList() ?? [];
       });
-    // }
+    }
   }
 
   @override

@@ -22,7 +22,14 @@ class MovieLocalDataSourceImpl extends MovieLocalDatasource {
 
   @override
   Future<List<MovieModel>> getCachedMovieList() async {
-    return movieBox.getAll();
+    List<MovieModel> movie = movieBox.getAll();
+    List<MovieModel> result = [];
+    for(MovieModel mov in movie){
+      if(result.contains(mov)){} else {
+        result.add(mov);
+      }
+    }
+    return result;
   }
 
   @override
@@ -33,13 +40,10 @@ class MovieLocalDataSourceImpl extends MovieLocalDatasource {
           .query(MovieModel_.movieId.equals(movie.movieId ?? 0))
           .build()
           .find();
-      if (existingMovies.isNotEmpty) {
-        MovieModel existingMovie = existingMovies.first;
-        toSave.add(existingMovie);
-      } else {
+      if (existingMovies.isEmpty) {
         toSave.add(movie);
       }
     }
-    movieBox.putMany(movies);
+    movieBox.putMany(toSave);
   }
 }
